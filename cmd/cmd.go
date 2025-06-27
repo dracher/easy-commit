@@ -16,7 +16,7 @@ func Cli() *cli.Command {
 		Flags: []cli.Flag{
 			&cli.BoolFlag{
 				Name:    "dry-run",
-				Value:   true,
+				Value:   false,
 				Usage:   "If true will only print generated commit message",
 				Aliases: []string{"d"},
 			},
@@ -73,14 +73,14 @@ func Cli() *cli.Command {
 				log.Fatal(err)
 			}
 
-			if !cmd.Bool("dry-run") {
+			if cmd.Bool("dry-run") {
+				fmt.Println("========= commitMessage =========")
+				fmt.Println(commitMessage)
+			} else {
 				fmt.Println("========= Gen commitMessage and perform git action =========")
 				if err := gitAct.DoGitCommit(commitMessage); err != nil {
 					log.Fatal(err)
 				}
-			} else {
-				fmt.Println("========= commitMessage =========")
-				fmt.Println(commitMessage)
 			}
 			return nil
 		},
