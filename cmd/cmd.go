@@ -24,7 +24,7 @@ func Cli() *cli.Command {
 				Name:     "api-key",
 				Value:    "",
 				Usage:    "OpenAI(or other compatible service providers) API key",
-				Sources:  cli.EnvVars("OPENAI_APIKEY"),
+				Sources:  cli.EnvVars("EC_APIKEY"),
 				Aliases:  []string{"k"},
 				Required: true,
 			},
@@ -32,12 +32,14 @@ func Cli() *cli.Command {
 				Name:    "model",
 				Value:   "gpt-3.5-turbo",
 				Usage:   "The model to use",
+				Sources: cli.EnvVars("EC_MODEL_NAME"),
 				Aliases: []string{"m"},
 			},
 			&cli.StringFlag{
 				Name:    "base-url",
 				Value:   "https://api.openai.com",
 				Aliases: []string{"url"},
+				Sources: cli.EnvVars("EC_BASE_URL"),
 				Usage:   "Can be any openai compatible service",
 			},
 			&cli.IntFlag{
